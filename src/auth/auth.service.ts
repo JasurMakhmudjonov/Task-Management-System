@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { RegisterAuthDto } from './dto/register.dto';
 import { LoginAuthDto } from './dto/login.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { UsersService } from '../users/users.service';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -10,16 +9,15 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly users: UsersService,
     private readonly jwt: JwtService,
   ) {}
   async register({ fullname, email, password, profileImage }: RegisterAuthDto) {
-    const existsUser = await this.prisma.users.findUnique({ where: { email } });
+    const existsUser = await this.prisma.user.findUnique({ where: { email } });
     if (existsUser) {
       throw new BadRequestException('Email already exists');
     }
     const hashedPwd = await hash(password, 10);
-    const user = await this.prisma.users.create({
+    const user = await this.prisma.user.create({
       data: {
         fullname,
         email,
@@ -33,7 +31,7 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginAuthDto) {
-    const user = await this.prisma.users.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) {
       throw new BadRequestException('User not found');
     }

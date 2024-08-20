@@ -3,6 +3,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app';
 import * as basicAuth from 'express-basic-auth';
 import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
+import { log } from 'console';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -20,6 +22,7 @@ async function bootstrap() {
   );
   app.enableVersioning();
   app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Exapmple API Documentation')
