@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Priority } from '@prisma/client';
@@ -33,5 +33,6 @@ export class CreateTodoDto {
   @ApiProperty({ example: 'categoryId' })
   @IsNotEmpty()
   @IsString()
+  @IsUUID()
   categoryId: string;
 }

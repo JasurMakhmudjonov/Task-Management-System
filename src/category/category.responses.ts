@@ -1,93 +1,190 @@
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponseOptions } from '@nestjs/swagger';
 
-export const CreateCategoryResponse = {
+export const CreateCategoryResponse: ApiResponseOptions = {
   status: 201,
-  description: 'Category successfully created',
-  type: Object,
+  description: 'Category created successfully',
   schema: {
-    example: {
-      message: 'Category created successfully',
+    type: 'object',
+    properties: {
+      message: {
+        type: 'string',
+        example: 'Category created successfully',
+      },
       data: {
-        id: 'e6e53b39-2e74-4ec3-8f9e-b7a3e47f2c2e',
-        name: 'New Category',
-        userId: 'd5b50a43-3c1f-4e1b-9bba-1d5c1b7e8318',
-        createdAt: '2024-08-20T08:00:00Z',
-        updatedAt: '2024-08-20T08:00:00Z',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+            example: 'a9f0e5a4-6f5b-4d84-8c8f-0a9b17c0ddad',
+          },
+          name: {
+            type: 'string',
+            example: 'Electronics',
+          },
+          userId: {
+            type: 'string',
+            format: 'uuid',
+            example: 'b2a2e16e-8b4e-4a77-8b4d-4931c70f1d7e',
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+          updatedAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+        },
       },
     },
   },
 };
 
-export const GetAllCategoriesResponse = {
+export const GetAllCategoriesResponse: ApiResponseOptions = {
   status: 200,
-  description: 'List of all categories',
-  type: Object,
+  description: 'All categories retrieved successfully',
   schema: {
-    example: {
-      message: 'All categories',
-      data: [
-        {
-          id: 'e6e53b39-2e74-4ec3-8f9e-b7a3e47f2c2e',
-          name: 'Category 1',
-          userId: 'd5b50a43-3c1f-4e1b-9bba-1d5c1b7e8318',
-          createdAt: '2024-08-20T08:00:00Z',
-          updatedAt: '2024-08-20T08:00:00Z',
+    type: 'object',
+    properties: {
+      message: {
+        type: 'string',
+        example: 'All categories',
+      },
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              format: 'uuid',
+              example: 'a9f0e5a4-6f5b-4d84-8c8f-0a9b17c0ddad',
+            },
+            name: {
+              type: 'string',
+              example: 'Electronics',
+            },
+            userId: {
+              type: 'string',
+              format: 'uuid',
+              example: 'b2a2e16e-8b4e-4a77-8b4d-4931c70f1d7e',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-20T12:34:56.789Z',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-20T12:34:56.789Z',
+            },
+          },
         },
-        {
-          id: 'c1a6e5d9-7d23-4f92-9b80-16a72f098b45',
-          name: 'Category 2',
-          userId: 'd5b50a43-3c1f-4e1b-9bba-1d5c1b7e8318',
-          createdAt: '2024-08-20T08:00:00Z',
-          updatedAt: '2024-08-20T08:00:00Z',
-        },
-      ],
+      },
     },
   },
 };
 
-export const GetCategoryByIdResponse = {
+export const GetCategoryByIdResponse: ApiResponseOptions = {
   status: 200,
   description: 'Category retrieved successfully',
-  type: Object,
   schema: {
-    example: {
-      message: 'Category found',
+    type: 'object',
+    properties: {
+      message: {
+        type: 'string',
+        example: 'Category found',
+      },
       data: {
-        id: 'e6e53b39-2e74-4ec3-8f9e-b7a3e47f2c2e',
-        name: 'Category 1',
-        userId: 'd5b50a43-3c1f-4e1b-9bba-1d5c1b7e8318',
-        createdAt: '2024-08-20T08:00:00Z',
-        updatedAt: '2024-08-20T08:00:00Z',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+            example: 'a9f0e5a4-6f5b-4d84-8c8f-0a9b17c0ddad',
+          },
+          name: {
+            type: 'string',
+            example: 'Electronics',
+          },
+          userId: {
+            type: 'string',
+            format: 'uuid',
+            example: 'b2a2e16e-8b4e-4a77-8b4d-4931c70f1d7e',
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+          updatedAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+        },
       },
     },
   },
 };
 
-export const UpdateCategoryResponse = {
+export const UpdateCategoryResponse: ApiResponseOptions = {
   status: 200,
-  description: 'Category successfully updated',
-  type: Object,
+  description: 'Category updated successfully',
   schema: {
-    example: {
-      message: 'Category updated successfully',
+    type: 'object',
+    properties: {
+      message: {
+        type: 'string',
+        example: 'Category updated successfully',
+      },
       data: {
-        id: 'e6e53b39-2e74-4ec3-8f9e-b7a3e47f2c2e',
-        name: 'Updated Category',
-        userId: 'd5b50a43-3c1f-4e1b-9bba-1d5c1b7e8318',
-        createdAt: '2024-08-20T08:00:00Z',
-        updatedAt: '2024-08-20T08:00:00Z',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            format: 'uuid',
+            example: 'a9f0e5a4-6f5b-4d84-8c8f-0a9b17c0ddad',
+          },
+          name: {
+            type: 'string',
+            example: 'Home Appliances',
+          },
+          userId: {
+            type: 'string',
+            format: 'uuid',
+            example: 'b2a2e16e-8b4e-4a77-8b4d-4931c70f1d7e',
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+          updatedAt: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-08-20T12:34:56.789Z',
+          },
+        },
       },
     },
   },
 };
 
-export const DeleteCategoryResponse = {
+export const DeleteCategoryResponse: ApiResponseOptions = {
   status: 204,
-  description: 'Category successfully deleted',
-  type: Object,
+  description: 'Category deleted successfully',
   schema: {
-    example: {
-      message: 'Category deleted successfully',
+    type: 'object',
+    properties: {
+      message: {
+        type: 'string',
+        example: 'Category deleted successfully',
+      },
     },
   },
 };

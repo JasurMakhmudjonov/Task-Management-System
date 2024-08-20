@@ -1,5 +1,6 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { hash } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -38,11 +39,21 @@ export class UserService {
     return { message: 'User found', data: user };
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(
+    id: string,
+    { fullname, email, password, profileImage }: UpdateUserDto,
+  ) {
     await this.findOne(id);
+
+    const hasedPwd = await hash(password, 10);
     const updatedUser = await this.prisma.user.update({
       where: { id },
-      data: updateUserDto,
+      data: {
+        fullname,
+        email,
+        password: hasedPwd,
+        profileImage,
+      },
     });
     return { message: 'User updated successfully', data: updatedUser };
   }

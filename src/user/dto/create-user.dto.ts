@@ -27,6 +27,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @Transform(({ value }) => value.trim())
-  prifileImage: string;
+  profileImage: string;
 }
 

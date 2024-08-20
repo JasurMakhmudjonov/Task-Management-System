@@ -40,9 +40,7 @@ export class CategoryService {
     const allCategories = await this.prisma.category.findMany({
       where: { userId },
     });
-    if (allCategories.length === 0) {
-      throw new NotFoundException('Category not found');
-    }
+
     return { message: 'All categories', data: allCategories };
   }
 
@@ -50,26 +48,24 @@ export class CategoryService {
     await this.validateUser(userId);
 
     const category = await this.prisma.category.findUnique({
-      where: { id, userId },
+      where: { id },
     });
-    if (category.userId !== userId) {
-      throw new BadRequestException(
-        'Category not found or does not belong to you',
-      );
+
+    if (!category) {
+      throw new NotFoundException('Category not found');
     }
+
+    if (category.userId !== userId) {
+      throw new ForbiddenException('Category does not belong to you');
+    }
+
     return { message: 'Category found', data: category };
   }
 
   async update(id: string, name: string, userId: string) {
     await this.validateUser(userId);
 
-    const category = await this.findOne(id, userId);
-
-    if (category.data.userId !== userId) {
-      throw new ForbiddenException(
-        'You do not have permission to update this category',
-      );
-    }
+    await this.findOne(id, userId);
 
     const updatedCategory = await this.prisma.category.update({
       where: { id },
@@ -82,13 +78,8 @@ export class CategoryService {
   async remove(id: string, userId: string) {
     await this.validateUser(userId);
 
-    const category = await this.findOne(id, userId);
+    await this.findOne(id, userId);
 
-    if (category.data.userId !== userId) {
-      throw new ForbiddenException(
-        'You do not have permission to delete this category',
-      );
-    }
     await this.prisma.category.delete({ where: { id } });
     return { message: 'Category deleted successfully' };
   }

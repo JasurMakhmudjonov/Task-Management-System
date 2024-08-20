@@ -1,8 +1,9 @@
+// upload.responses.ts
 import { ApiResponseOptions } from '@nestjs/swagger';
 
 export const UploadFileSuccessResponse: ApiResponseOptions = {
-  status: 201,
-  description: 'File successfully uploaded',
+  status: 200,
+  description: 'File uploaded successfully',
   schema: {
     type: 'object',
     properties: {
@@ -16,18 +17,21 @@ export const UploadFileSuccessResponse: ApiResponseOptions = {
 
 export const UploadFileInvalidResponse: ApiResponseOptions = {
   status: 400,
-  description: 'Invalid file format or size',
+  description: 'Invalid file type or size',
   schema: {
     type: 'object',
     properties: {
       statusCode: {
-        type: 'number',
+        type: 'integer',
+        example: 400,
       },
       message: {
         type: 'string',
+        example: 'Invalid file type or size',
       },
       error: {
         type: 'string',
+        example: 'Bad Request',
       },
     },
   },
@@ -40,13 +44,16 @@ export const UploadFileErrorResponse: ApiResponseOptions = {
     type: 'object',
     properties: {
       statusCode: {
-        type: 'number',
+        type: 'integer',
+        example: 500,
       },
       message: {
         type: 'string',
+        example: 'Internal server error',
       },
       error: {
         type: 'string',
+        example: 'Internal Server Error',
       },
     },
   },
