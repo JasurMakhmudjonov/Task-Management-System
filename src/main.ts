@@ -25,8 +25,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Exapmple API Documentation')
-    .setDescription('Starter')
+    .setTitle('Task Management System')
+    .setDescription('You can manage tasks in these endpoints')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
